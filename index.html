@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Kontaktlista – Pedagogiskt exempel</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<h1>Kontaktlista </h1>
+
+<div class="layout">
+
+
+    <div class="app">
+
+    <h2>Skapa ny kontakt</h2>
+
+    <input id="nameInput" type="text" placeholder="Namn">
+    <input id="phoneInput" type="text" placeholder="Telefonnummer">
+
     
+
+    <button id="addBtn">Skapa kontakt</button>
+    <button id="clearBtn">Radera lista</button>
+
+    <p id="errorMessage" class="error"></p>
+
+    <h2>Kontaktlista</h2>
+    <div id="contactList"></div>
+
+</div>
+
+<div class="explanation">
+
+    <h2>Hur detta exempel fungerar</h2>
+
+    <p>
+        Vänstersidan är själva applikationen.
+        Högersidan förklarar hur HTML-struktur och JavaScript-logik hänger ihop.
+    </p>
+
+    <h3>HTML-struktur</h3>
+    <ul>
+        <li>Inputfält för namn och telefonnummer</li>
+        <li>Knappar för att skapa och radera</li>
+        <li>En tom container där kontakter skapas dynamiskt</li>
+    </ul>
+
+    <h3>JavaScript – funktioner</h3>
+    <ul>
+        <li><strong>createContact()</strong> – skapar kontakt</li>
+        <li><strong>toggleEdit()</strong> – redigerar / sparar</li>
+        <li><strong>deleteContact()</strong> – raderar kontakt</li>
+        <li><strong>clearList()</strong> – raderar alla</li>
+        <li><strong>saveToLocalStorage()</strong> – sparar data</li>
+    </ul>
+
+    <h3>Vad händer i JavaScript just nu?</h3>
+    <div class="js-box" id="jsExplanation">
+         Väntar på användarinteraktion…   
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
