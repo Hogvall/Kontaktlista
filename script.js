@@ -10,6 +10,40 @@ document.getElementById("clearBtn").addEventListener("click", clearList);
 function explain(text) {
   jsExplanation.textContent = text;
 }
+function validateContact(name, phone, nameField, phoneField) {
+  const nameRegex = /^[A-Za-zÅÄÖåäö\s´3'-]+$/;
+  const phoneRegex = /^[0-9-+ ]+$/;
+
+  nameField?.classList.remove("input-error");
+  phoneField?.classList.remove("input-error");
+
+  if (!name || !phone) {
+    errorMessage.textContent =
+      "Båda fälten måste vara ifyllda.";
+
+    if (!name) nameField?.classList.add("input-error");
+    if (!phone) phoneField?.classList.add("input-error");
+
+    return false;
+  }
+
+  if (!nameRegex.test(name)) {
+    errorMessage.textContent =
+      "Namnet får endast innehålla bokstäver.";
+    nameField?.classList.add("input-error");
+    return false;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    errorMessage.textContent =
+      "Telefonnumret får endast innehålla siffror.";
+    phoneField?.classList.add("input-error");
+    return false;
+  }
+
+  errorMessage.textContent = "";
+  return true;
+}
 
 function createContact() {
   explain(
@@ -18,28 +52,11 @@ function createContact() {
     "En ny kontakt skapas i DOM:en och sparas i Local Storage."
   );
 
-  const name = nameInput.value.trim();
-  const phone = phoneInput.value.trim();
-  const nameRegex = /^[A-Za-zÅÄÖåäö\s]+$/;
-  const phoneRegex = /^[0-9]+$/;
+const name = nameInput.value.trim();
+const phone = phoneInput.value.trim();
 
-if (!name || !phone) {
-  errorMessage.textContent =
-    "Båda fälten måste vara ifyllda.";
-  return;
-}
+if (!validateContact(name, phone, nameInput, phoneInput)) return;
 
-if (!nameRegex.test(name)) {
-  errorMessage.textContent =
-    "Namnet får endast innehålla bokstäver.";
-  return;
-}
-
-if (!phoneRegex.test(phone)) {
-  errorMessage.textContent =
-    "Telefonnumret får endast innehålla siffror.";
-  return;
-}
   errorMessage.textContent = "";
 
   const contactDiv = document.createElement("div");
@@ -82,23 +99,21 @@ function toggleEdit(nameField, phoneField, button) {
     phoneField.disabled = false;
     button.textContent = "Spara";
   } else {
-    explain(
-      "toggleEdit() körs igen. Uppgifterna valideras och sparas."
-    );
+  explain(
+    "toggleEdit() körs igen. Uppgifterna valideras och sparas."
+  );
 
-    if (!nameField.value.trim() || !phoneField.value.trim()) {
-      errorMessage.textContent =
-        "En befintlig kontakt får inte sparas tom.";
-      return;
-    }
-    
+  const name = nameField.value.trim();
+  const phone = phoneField.value.trim();
 
-    errorMessage.textContent = "";
-    nameField.disabled = true;
-    phoneField.disabled = true;
-    button.textContent = "Ändra";
-    saveToLocalStorage();
-  }
+  if (!validateContact(name, phone, nameField, phoneField)) return;
+
+  nameField.disabled = true;
+  phoneField.disabled = true;
+  button.textContent = "Ändra";
+  saveToLocalStorage();
+}
+  
 }
 
 function deleteContact(contactDiv) {
